@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="row">
+	<h3>Bills</h3>
+</div>
+<div class="row">
+	<div class="col-md-4">
+		{% with messages = get_flashed_messages() %}
+		{% if messages %}
+		{% for message in messages %}
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			{{ message }}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+		</div>
+		{% endfor %}
+		{% endif %}
+		{% endwith %}
+		<div class="card card-body">
+			<form action="{{url_for('add_billing')}}" method="POST">
+				<div class="form-group">
+					<input type="transAmmount" class="form-control" name="transAmmount" placeholder="Transaction Amount">
+				</div>
+				<div class="form-group">
+					<input type="paymentType" class="form-control" name="paymentType" placeholder="Payment Type">
+                </div>
+				<button class="btn btn-primary btn-block">
+					Save
+				</button>
+			</form>
+		</div>
+	</div>
+	<div class="col-md-8">
+		<table id="example" class="table table-striped table-bordered" style="width:100%">
+			<thead>
+				<tr>
+                    <td>Order ID</td>
+					<td>Transaction Amount</td>
+					<td>Payment Type</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for row in list_bills %}
+				<tr>
+					<td>{{row[0]}}</td>
+					<td>{{row[1]}}</td>
+                    <td>{{row[2]}}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+</div>
+
+{% endblock %}
